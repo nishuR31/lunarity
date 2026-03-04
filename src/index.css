@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --void: #050008;
+    --lunar-glow: rgba(180, 100, 255, 0.6);
+    --lunar-dim: rgba(120, 40, 200, 0.3);
+    --text-primary: #e8d5ff;
+    --text-secondary: rgba(200, 150, 255, 0.7);
+    --text-muted: rgba(160, 100, 220, 0.45);
+    --border: rgba(140, 60, 220, 0.2);
+    --glass: rgba(40, 0, 80, 0.28);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text-primary);
+    font-family: 'Georgia', serif;
+    overflow-x: hidden;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    body { cursor: none; }
+  }
+
+  ::selection { background: rgba(160, 80, 255, 0.35); color: #fff; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #0a0015; }
+  ::-webkit-scrollbar-thumb { background: rgba(160, 80, 255, 0.4); border-radius: 3px; }
+
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(0.7) sepia(1) saturate(3) hue-rotate(230deg);
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+  }
+
+  .glow-text {
+    background: linear-gradient(135deg, #fff 0%, #d4b4ff 40%, #9040e0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .label {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .nav-link {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 7px 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: #e8d5ff;
+    background: rgba(120, 40, 200, 0.25);
+    border-color: var(--border);
+  }
+
+  .page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .moon-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+  }
+}
+
+@layer utilities {
+  @keyframes orbFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-28px) scale(1.04); }
+  }
+  @keyframes moonPulse {
+    0%, 100% { filter: drop-shadow(0 0 30px rgba(180,100,255,0.45)); }
+    50% { filter: drop-shadow(0 0 65px rgba(210,150,255,0.8)); }
+  }
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+  @keyframes scanline {
+    0% { top: -5%; }
+    100% { top: 105%; }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.34,1.2,0.64,1) both; }
+  .animate-fade-in { animation: fadeIn 0.6s ease both; }
+  .animate-scanline { animation: scanline 9s linear infinite; }
+  .animate-moon-pulse { animation: moonPulse 4s ease-in-out infinite; }
+}
+
+/* Mobile responsive overrides */
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+
+  .nav-link {
+    font-size: 11px;
+    padding: 6px 10px;
+    letter-spacing: 1px;
+  }
+
+  .glass-card {
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .label {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+}
